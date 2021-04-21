@@ -1,0 +1,23 @@
+name: Auto Update
+
+on:
+  push:
+    branches:
+      - "source"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Chekcout source
+      uses: actions/checkout@v2
+
+    - name: Update
+      run: bash update.sh
+
+    - name: Push to master
+      uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Auto Update ${{ github.sha }}
