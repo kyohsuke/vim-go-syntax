@@ -1,8 +1,6 @@
 name: Auto Update
 
 on:
-  schedule:
-    - cron: "0 * * * *"
   push:
     branches:
       - "source"
