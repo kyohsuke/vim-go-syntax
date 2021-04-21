@@ -26,4 +26,4 @@ jobs:
         git checkout master
         git rebase source
         git commit -am "Auto Update ${{ github.sha }}"
-        git push
+        git push --force
