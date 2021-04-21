@@ -13,6 +13,8 @@ jobs:
 
     - name: Chekcout source
       uses: actions/checkout@v2
+      with:
+        submodules: recursive
 
     - name: Update
       run: bash update.sh
