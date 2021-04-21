@@ -27,3 +27,4 @@ jobs:
         git rebase source
         git commit -am "Auto Update ${{ github.sha }}"
         git push --force
+        true
