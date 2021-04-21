@@ -3,8 +3,8 @@
 DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
 
 cd "$DIR/vim-go"
-git checkout master
-git pull --rebase
+git submodule init
+git submodule update
 
 mkdir -p "$DIR/syntax/"
 cd "$DIR"
