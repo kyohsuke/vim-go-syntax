@@ -1,8 +1,9 @@
 name: Auto Update
 
 on:
-  schedule:
-    - cron: "0 0 * * *"
+  push:
+    branches:
+      - "source"
 
 jobs:
   build:
@@ -15,10 +16,8 @@ jobs:
         fetch-depth: 0
         submodules: recursive
 
-    - name: Update
-      run: bash update.sh
-
     - name: Push to master
-      uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Apply vim-go changes ${{ steps.date.outputs.date }}
+      run: |
+        git checkout master
+        git rebase source
+        git push -f master || true
