@@ -1,4 +1,4 @@
-name: Auto Update
+name: Sync to master
 
 on:
   push:
