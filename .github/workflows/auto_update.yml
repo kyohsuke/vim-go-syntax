@@ -24,3 +24,4 @@ jobs:
       with:
         branch: master
         commit_message: Auto Update ${{ github.sha }}
+        push_options: '--force'
