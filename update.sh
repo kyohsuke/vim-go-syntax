@@ -6,6 +6,7 @@ cd "$DIR/vim-go"
 git checkout master
 git pull --rebase
 
+mkdir -p "$DIR/syntax/"
 cd "$DIR"
 rm -rf "$DIR"/syntax/*
 cp "$DIR"/vim-go/syntax/* "$DIR/syntax/"
