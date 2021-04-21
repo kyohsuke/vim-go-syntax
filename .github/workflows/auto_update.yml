@@ -19,6 +19,12 @@ jobs:
     - name: Update
       run: bash update.sh
 
+    - name: Status
+      run: |
+        ls -R
+        git status
+        git branch
+
     - name: Push to master
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
