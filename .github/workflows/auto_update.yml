@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - name: Chekcout source
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
         submodules: recursive
@@ -18,7 +18,10 @@ jobs:
     - name: Update
       run: bash update.sh
 
+    - name: date
+      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+
     - name: Push to master
-      uses: EndBug/add-and-commit@v7
+      uses: EndBug/add-and-commit@v9
       with:
         message: Apply vim-go changes ${{ steps.date.outputs.date }}
