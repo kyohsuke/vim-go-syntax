@@ -19,7 +19,7 @@ jobs:
       run: bash update.sh
 
     - name: date
-      run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
     - name: Push to master
       uses: EndBug/add-and-commit@v9
