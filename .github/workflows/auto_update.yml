@@ -3,6 +3,7 @@ name: Auto Update
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -16,12 +17,38 @@ jobs:
         submodules: recursive
 
     - name: Update
-      run: bash update.sh
+      run: |
+        export DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
+        cd "$DIR"
+        rm -rf "$DIR/vim-go"
+        rm -rf "$DIR/syntax"
+        rm -rf "$DIR/ftdetect"
+        rm -rf "$DIR/autoload"
 
-    - name: date
-      run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+        git clone https://github.com/fatih/vim-go vim-go
+
+        mkdir "$DIR/syntax/"
+        mkdir "$DIR/ftdetect/"
+        mkdir -p "$DIR/autoload/go"
+
+        cp "$DIR"/vim-go/ftdetect/* "$DIR/ftdetect/"
+        cp "$DIR"/vim-go/syntax/* "$DIR/syntax/"
+
+        export AUTOLOADS="config path util"
+        for FILE in $AUTOLOADS
+        do
+          cp "$DIR/vim-go/autoload/go/$FILE.vim" "$DIR/autoload/go/"
+        done
+
+        rm -rf "$DIR/vim-go"
 
     - name: Push to master
-      uses: EndBug/add-and-commit@v9
-      with:
-        message: Apply vim-go changes ${{ steps.date.outputs.date }}
+      run: |
+        CHANGES=$(git diff-index --name-only HEAD | wc -l)
+        echo "[INFO] CHANGES = $CHANGES"
+        if [[ $CHANGES -gt 0 ]]; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Apply vim-go changes $(date +'%Y-%m-%d')"
+          git push
+        fi
