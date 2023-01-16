@@ -27,17 +27,17 @@ jobs:
 
         git clone https://github.com/fatih/vim-go vim-go
 
-        mkdir "$DIR/syntax/"
-        mkdir "$DIR/ftdetect/"
-        mkdir -p "$DIR/autoload/go"
+        mkdir -v "$DIR/syntax/"
+        mkdir -v "$DIR/ftdetect/"
+        mkdir -vp "$DIR/autoload/go"
 
-        cp "$DIR"/vim-go/ftdetect/* "$DIR/ftdetect/"
-        cp "$DIR"/vim-go/syntax/* "$DIR/syntax/"
+        cp -v "$DIR"/vim-go/ftdetect/* "$DIR/ftdetect/"
+        cp -v "$DIR"/vim-go/syntax/* "$DIR/syntax/"
 
         export AUTOLOADS="config path util"
         for FILE in $AUTOLOADS
         do
-          cp "$DIR/vim-go/autoload/go/$FILE.vim" "$DIR/autoload/go/"
+          cp -v "$DIR/vim-go/autoload/go/$FILE.vim" "$DIR/autoload/go/"
         done
 
         rm -rf "$DIR/vim-go"
