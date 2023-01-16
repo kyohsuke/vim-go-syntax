@@ -44,7 +44,7 @@ jobs:
 
     - name: Push to master
       run: |
-        CHANGES=$(git diff-index --name-only HEAD | wc -l)
+        CHANGES=$(git status -s | grep -v .github | wc -l)
         echo "[INFO] CHANGES = $CHANGES"
         if [[ $CHANGES -gt 0 ]]; then
           git config --local user.email "action@github.com"
