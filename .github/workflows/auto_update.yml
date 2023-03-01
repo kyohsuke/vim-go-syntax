@@ -18,6 +18,7 @@ jobs:
 
     - name: Update
       run: |
+        export ROOTDIR="$(pwd)"
         export DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
         cd "$DIR"
         rm -rf "$DIR/vim-go"
@@ -27,17 +28,17 @@ jobs:
 
         git clone https://github.com/fatih/vim-go vim-go
 
-        mkdir -v "$DIR/syntax/"
-        mkdir -v "$DIR/ftdetect/"
-        mkdir -vp "$DIR/autoload/go"
+        mkdir -vp "$ROOTDIR/syntax/"
+        mkdir -vp "$ROOTDIR/ftdetect/"
+        mkdir -vp "$ROOTDIR/autoload/go"
 
-        cp -v "$DIR"/vim-go/ftdetect/* "$DIR/ftdetect/"
-        cp -v "$DIR"/vim-go/syntax/* "$DIR/syntax/"
+        cp -v "$DIR"/vim-go/ftdetect/* "$ROOTDIR/ftdetect/"
+        cp -v "$DIR"/vim-go/syntax/* "$ROOTDIR/syntax/"
 
         export AUTOLOADS="config path util"
         for FILE in $AUTOLOADS
         do
-          cp -v "$DIR/vim-go/autoload/go/$FILE.vim" "$DIR/autoload/go/"
+          cp -v "$DIR/vim-go/autoload/go/$FILE.vim" "$ROOTDIR/autoload/go/"
         done
 
         rm -rf "$DIR/vim-go"
