@@ -25,15 +25,18 @@ jobs:
         rm -rf "$DIR/syntax"
         rm -rf "$DIR/ftdetect"
         rm -rf "$DIR/autoload"
+        rm -rf "$DIR/indent"
 
         git clone https://github.com/fatih/vim-go vim-go
 
         mkdir -vp "$ROOTDIR/syntax/"
         mkdir -vp "$ROOTDIR/ftdetect/"
         mkdir -vp "$ROOTDIR/autoload/go"
+        mkdir -vp "$ROOTDIR/indent/"
 
         cp -v "$DIR"/vim-go/ftdetect/* "$ROOTDIR/ftdetect/"
         cp -v "$DIR"/vim-go/syntax/* "$ROOTDIR/syntax/"
+        cp -v "$DIR"/vim-go/indent/* "$ROOTDIR/indent/"
 
         export AUTOLOADS="config path util"
         for FILE in $AUTOLOADS
